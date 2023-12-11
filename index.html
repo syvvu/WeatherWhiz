@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UCSD Weather Widget</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="js-content" style="display: none;">
+        <div id="weather-widget">
+            <h1 id="weather-title">Current Weather at La Jolla</h1>
+            <h2 id="current-time"></h2>
+            <img id="weather-icon" class="weather-icon" alt="Weather icon"/>
+            <div id="weather-details"></div>
+        </div>
+        <button id="mode-toggle">Dark Mode</button>
+    </div>
+    <noscript>
+        <p id="no-js-message">Current weather conditions are unavailable. Please enable JavaScript to view the weather updates.</p>
+    </noscript>
+    <script src="script.js"></script>
+</body>
+</html>
