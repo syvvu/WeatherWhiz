@@ -53,20 +53,24 @@ document.addEventListener("DOMContentLoaded", function () {
     weatherDetails.innerHTML = details;
   }
 
-  const modeToggle = document.getElementById("mode-toggle");
-  let currentMode = localStorage.getItem("mode") || "light";
+  const modeToggle = document.getElementById("theme-toggle");
+  let currentTheme = localStorage.getItem("theme") || "light";
 
   modeToggle.addEventListener("click", () => {
-    if (currentMode === "light") {
-      document.body.classList.add("dark-mode");
-      currentMode = "dark";
-      modeToggle.innerHTML = "Light Mode";
+    var img = document.getElementById("theme-image");
+
+    if (currentTheme === "light") {
+      document.body.classList.add("dark-theme");
+      currentTheme = "dark";
+      img.src = "./assets/coffee-machine.png";
+      img.alt = "Light Theme";
     } else {
-      document.body.classList.remove("dark-mode");
-      currentMode = "light";
-      modeToggle.innerHTML = "Dark Mode";
+      document.body.classList.remove("dark-theme");
+      currentTheme = "light";
+      img.src = "./assets/fried-chicken.png";
+      img.alt = "Dark Theme";
     }
-    localStorage.setItem("mode", currentMode);
+    localStorage.setItem("theme", currentTheme);
   });
 
   setInterval(updateTime, 1000);
