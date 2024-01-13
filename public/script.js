@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("js-content").style.display = "block";
 
   const weatherIcon = document.getElementById("weather-icon");
   const weatherDetails = document.getElementById("weather-details");

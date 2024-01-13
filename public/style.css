@@ -11,10 +11,6 @@ body {
     margin: 0;
 }
 
-#no-js-message {
-    font-size: 25px;
-}
-
 #weather-widget {
     border-radius: 10px;
     background-color: white;
