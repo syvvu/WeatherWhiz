@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   const getCity = document.getElementById("city-name");
+  const localTimeElement = document.getElementById("local-time");
   const weatherIcon = document.getElementById("weather-icon");
   const weatherDetails = document.getElementById("weather-details");
   const currentTime = document.getElementById("current-time");
@@ -18,9 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log("Latitude:", data.latitude);
-          console.log("Longitude:", data.longitude);
+          console.log("Time Zone:", data.timeZone);
+          calculateLocalTime(data.timeZone);
           updateWeatherUI(data.currentWeather, data.cityName);
+          setInterval(() => calculateLocalTime(data.timeZone), 1000);
         } else {
           console.error("Server response:", data.message);
         }
@@ -30,9 +32,19 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function updateTime() {
+  function calculateLocalTime(timeZone) {
     const now = new Date();
-    currentTime.textContent = now.toLocaleTimeString();
+    const localTime = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    }).format(now);
+
+    localTimeElement.textContent = localTime;
   }
 
   function updateWeatherUI(weatherData, cityName) {
@@ -104,8 +116,4 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Please enter a valid zip code.");
     }
   });
-
-  setInterval(updateTime, 1000);
-  fetchWeather();
-  setInterval(fetchWeather, 600000);
 });

@@ -33,13 +33,14 @@ app.post('/', async (req, res) => {
       // Weather API calls
       const weatherResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
       const weatherData = weatherResponse.data;
+      const timeZone = weatherData.properties.timeZone;
 
       if (weatherData.properties && weatherData.properties.forecast) {
         const forecastResponse = await axios.get(weatherData.properties.forecast);
         const forecastData = forecastResponse.data;
         const currentWeather = forecastData.properties.periods[0];
 
-        return res.json({ success: true, currentWeather, latitude, longitude, cityName});
+        return res.json({ success: true, currentWeather, latitude, longitude, cityName, timeZone });
       } else {
         return res.json({ success: false, message: 'Weather data not available' });
       }
