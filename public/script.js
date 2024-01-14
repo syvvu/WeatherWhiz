@@ -19,14 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log("Latitude:", data.latitude);
-          console.log("Longitude:", data.longitude);
-          console.log("Time Zone:", data.timeZone);
           calculateLocalTime(data.timeZone);
           updateWeatherUI(data.currentWeather, data.cityName);
           setInterval(() => calculateLocalTime(data.timeZone), 1000);
         } else {
-          console.error("Server response:", data.message);
           loadingMessage.textContent = "Oops..Weather data unavailable ❄️";
 
           weatherWidget.style.display = "none";
@@ -34,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch((error) => {
-        console.error("Error fetching location data:", error);
         loadingMessage.textContent = "Oops..Location data unavailable ❄️";
 
         weatherWidget.style.display = "none";
