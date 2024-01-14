@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-
+  const weatherWidget = document.getElementById("weather-widget");
+  const loadingMessage = document.getElementById("loading-message");
   const getCity = document.getElementById("city-name");
   const localTimeElement = document.getElementById("local-time");
   const weatherIcon = document.getElementById("weather-icon");
   const weatherDetails = document.getElementById("weather-details");
-  const currentTime = document.getElementById("current-time");
   const zipCodeInput = document.getElementById("zip-code");
   const getWeatherButton = document.getElementById("get-weather");
 
@@ -19,16 +19,26 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          console.log("Latitude:", data.latitude);
+          console.log("Longitude:", data.longitude);
           console.log("Time Zone:", data.timeZone);
           calculateLocalTime(data.timeZone);
           updateWeatherUI(data.currentWeather, data.cityName);
           setInterval(() => calculateLocalTime(data.timeZone), 1000);
         } else {
           console.error("Server response:", data.message);
+          loadingMessage.textContent = "Oops..Weather data unavailable ❄️";
+
+          weatherWidget.style.display = "none";
+          loadingMessage.style.display = "block";
         }
       })
       .catch((error) => {
         console.error("Error fetching location data:", error);
+        loadingMessage.textContent = "Oops..Location data unavailable ❄️";
+
+        weatherWidget.style.display = "none";
+        loadingMessage.style.display = "block";
       });
   }
 
@@ -48,6 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateWeatherUI(weatherData, cityName) {
+    weatherWidget.style.display = "block";
+    loadingMessage.style.display = "none";
+    loadingMessage.textContent = "Summoning the weather spirits... 🌩️✨";
+
     getCity.textContent = `Current Weather at ${cityName}`;
 
     let iconName;
@@ -111,6 +125,9 @@ document.addEventListener("DOMContentLoaded", function () {
   getWeatherButton.addEventListener("click", () => {
     const zipCode = zipCodeInput.value;
     if (zipCode) {
+      weatherWidget.style.display = "none";
+      loadingMessage.style.display = "block";
+      loadingMessage.textContent = "Summoning the weather spirits... 🌩️✨";
       fetchWeather(zipCode);
     } else {
       alert("Please enter a valid zip code.");

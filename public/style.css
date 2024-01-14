@@ -12,6 +12,7 @@ body {
 }
 
 #weather-widget {
+  display: none;
   border-radius: 10px;
   background-color: white;
   padding: 20px;
@@ -30,6 +31,11 @@ body {
 .weather-detail {
   margin: 10px 0;
   font-size: 1.1em;
+}
+
+#loading-message {
+  display: none;
+  font-size: 30px;
 }
 
 #zip-code-container {
