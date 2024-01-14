@@ -43,14 +43,19 @@ document.addEventListener("DOMContentLoaded", function () {
     switch (weatherData.shortForecast) {
       case "Partly Cloudy":
         iconName = "partly-cloudy";
+        break;
       case "Mostly Sunny":
         iconName = "mostly-sunny";
+        break;
       case "Sunny":
         iconName = "sunny";
+        break;
       case "Mostly Clear":
         iconName = "mostly-clear";
+        break;
       case "Patchy Fog":
         iconName = "patchy-fog";
+        break;
       case "Patchy Fog then Mostly Sunny":
         iconName = "fog-then-sunny";
         break;
