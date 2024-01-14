@@ -3,14 +3,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const weatherIcon = document.getElementById("weather-icon");
   const weatherDetails = document.getElementById("weather-details");
   const currentTime = document.getElementById("current-time");
+  const zipCodeInput = document.getElementById("zip-code");
+  const getWeatherButton = document.getElementById("get-weather");
 
-  function fetchWeather() {
-    fetch('/weather')
+  function fetchWeather(zipCode) {
+    fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ zipCode }),
+    })
       .then((response) => response.json())
-      .then((data) => updateWeatherUI(data))
+      .then((data) => {
+        if (data.success) {
+          console.log("Latitude:", data.latitude);
+          console.log("Longitude:", data.longitude);
+          updateWeatherUI(data.currentWeather);
+        } else {
+          console.error("Server response:", data.message);
+        }
+      })
       .catch((error) => {
-        console.error("Error fetching weather data:", error);
-        weatherDetails.innerHTML = "Current Weather Conditions Unavailable";
+        console.error("Error fetching location data:", error);
       });
   }
 
@@ -71,6 +86,15 @@ document.addEventListener("DOMContentLoaded", function () {
       img.alt = "Dark Theme";
     }
     localStorage.setItem("theme", currentTheme);
+  });
+
+  getWeatherButton.addEventListener("click", () => {
+    const zipCode = zipCodeInput.value;
+    if (zipCode) {
+      fetchWeather(zipCode);
+    } else {
+      alert("Please enter a valid zip code.");
+    }
   });
 
   setInterval(updateTime, 1000);
