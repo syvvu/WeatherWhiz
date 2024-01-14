@@ -28,6 +28,7 @@ app.post('/', async (req, res) => {
       const location = geocodingData.results[0].geometry.location;
       const latitude = location.lat;
       const longitude = location.lng;
+      const cityName = geocodingData.results[0].address_components[1].long_name;
 
       // Weather API calls
       const weatherResponse = await axios.get(`https://api.weather.gov/points/${latitude},${longitude}`);
@@ -38,7 +39,7 @@ app.post('/', async (req, res) => {
         const forecastData = forecastResponse.data;
         const currentWeather = forecastData.properties.periods[0];
 
-        return res.json({ success: true, currentWeather, latitude, longitude });
+        return res.json({ success: true, currentWeather, latitude, longitude, cityName});
       } else {
         return res.json({ success: false, message: 'Weather data not available' });
       }

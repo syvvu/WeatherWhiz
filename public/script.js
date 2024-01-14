@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+  const getCity = document.getElementById("city-name");
   const weatherIcon = document.getElementById("weather-icon");
   const weatherDetails = document.getElementById("weather-details");
   const currentTime = document.getElementById("current-time");
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.success) {
           console.log("Latitude:", data.latitude);
           console.log("Longitude:", data.longitude);
-          updateWeatherUI(data.currentWeather);
+          updateWeatherUI(data.currentWeather, data.cityName);
         } else {
           console.error("Server response:", data.message);
         }
@@ -34,7 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
     currentTime.textContent = now.toLocaleTimeString();
   }
 
-  function updateWeatherUI(weatherData) {
+  function updateWeatherUI(weatherData, cityName) {
+    getCity.textContent = `Current Weather at ${cityName}`;
+
     let iconName;
 
     switch (weatherData.shortForecast) {
