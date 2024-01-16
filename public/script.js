@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentTheme = localStorage.getItem("theme") || "light";
 
+  let interval;
+
   function fetchWeather(zipCode) {
     fetch("/", {
       method: "POST",
@@ -22,9 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
+          clearInterval(interval);
           calculateLocalTime(data.timeZone);
           updateWeatherUI(data.currentWeather, data.cityName);
-          setInterval(() => calculateLocalTime(data.timeZone), 1000);
+          interval = setInterval(() => calculateLocalTime(data.timeZone), 1000);
         } else {
           loadingMessage.textContent = "Oops..Weather data unavailable ❄️";
 
