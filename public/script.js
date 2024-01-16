@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const weatherDetails = document.getElementById("weather-details");
   const zipCodeInput = document.getElementById("zip-code");
   const getWeatherButton = document.getElementById("get-weather");
+  const modeToggle = document.getElementById("theme-toggle");
+
+  let currentTheme = localStorage.getItem("theme") || "light";
 
   function fetchWeather(zipCode) {
     fetch("/", {
@@ -97,10 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
     weatherDetails.innerHTML = details;
   }
 
-  const modeToggle = document.getElementById("theme-toggle");
-  let currentTheme = localStorage.getItem("theme") || "light";
-
-  modeToggle.addEventListener("click", () => {
+  function toggleTheme() {
     var img = document.getElementById("theme-image");
 
     if (currentTheme === "light") {
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
       img.alt = "Dark Theme";
     }
     localStorage.setItem("theme", currentTheme);
-  });
+  }
 
   function handleWeatherRequest() {
     const zipCode = zipCodeInput.value;
@@ -136,4 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   getWeatherButton.addEventListener("click", handleWeatherRequest);
+
+  modeToggle.addEventListener("click", toggleTheme);
 });
