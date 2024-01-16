@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("theme", currentTheme);
   });
 
-  getWeatherButton.addEventListener("click", () => {
+  function handleWeatherRequest() {
     const zipCode = zipCodeInput.value;
     if (zipCode) {
       weatherWidget.style.display = "none";
@@ -127,5 +127,13 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       alert("Please enter a valid zip code.");
     }
+  }
+
+  zipCodeInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      handleWeatherRequest();
+    }
   });
+
+  getWeatherButton.addEventListener("click", handleWeatherRequest);
 });
