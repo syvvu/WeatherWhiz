@@ -1,4 +1,4 @@
-# Weather Whiz ❄️
+# Weather Whiz ☀️
 
 Weather Whiz is a user-friendly weather information application that provides real-time weather details for any location based on ZIP codes.
 
@@ -20,4 +20,4 @@ Weather Whiz is hosted on [Heroku](https://weather-whiz-a4efce0ef3ca.herokuapp.c
 - **Backend:** Node.js, Express
 - **APIs:** Google Maps Geocoding API, National Weather Service API
 
-Explore the world of weather with Weather Whiz! 🚀☀️🌧️🌙
+Explore the world of weather with Weather Whiz! ❄️🌙☔️
